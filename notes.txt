@@ -1,0 +1,48 @@
+https://stats.espncricinfo.com/ci/content/records/283512.html
+
+How well do the 2 top batsmen in Indian cricket (and possibly in the world) bat in partnerships?
+Are they able to bat together well and do they string important partnerships with 
+other batters in the team?
+
+find the matches in which there is sharma and/or kohli partnerships?
+
+With which other batsman do they have the most impact in the outcome of a match?
+
+include hypothesis testing 
+random sample of some matches - do the means differ in a statistically significant manner?
+
+"""
+TODO:
+1. make sure you're only considering ODI  matches : DONE
+2. get 2 dataframes for Sharma and Kohli
+    batsman2, total_runs, total_deliveries, runs_sharma
+"""
+
+
+add result of match
+add home/away match - was the match played at home?
+add toss result of match = % of partnerships that team won the toss
+average strike rate of partnership = total_runs/total_deliveries
+what about some ODI matches that were played on 2 days? because of rain: 2019 wc semifinal IND vs. NZ
+    - are they going to be counted as different partnerships?
+
+
+
+how to account for avergaes with small number of counts
+e.g 1 partnership with 100 runs gives average - 100!!
+
+
+Venues = {'Napier', 'Auckland', 'Ahmedabad', 'Adelaide Oval', 'Dharmasala', 'Mumbai', 'Visakhapatnam',
+'Pune', 'Bangalore', 'Peshawar', 'Jaipur', 'Hambantota', 'Mirpur', 'Antigua', 'Cuttack', 'Bulawayo', 'Jamshedpur',
+'Manchester', 'Melbourne', 'Guwahati', 'Dharamsala', 'Birmingham', 'Rangiri Dambulla International Stadium',
+'Bristol', 'Christchurch', 'Karachi', 'Belfast', 'Kuala Lumpur', 'Thiruvananthapuram', 'Durban',
+'Johannesburg', 'St Kitts', 'Pallekele International Cricket Stadium', 'London', 'Chandigarh', 'Kochi',
+'St Lucia', 'Adelaide', 'Hobart', 'Cape Town', 'Sydney Cricket Ground', 'Colombo', 'Leeds',
+Hyderabad', 'Harare Sports Club', 'Rajkot', 'Nottingham', 'Melbourne Cricket Ground', 'Perth', 'Canberra',
+'Delhi', 'Bengaluru', 'Sydney', 'Mount Maunganui', 'Port Elizabeth', 'Vadodara', 'Lahore',
+'Dubai International Cricket Stadium', 'Nagpur', 'Wellington', 'Hamilton', 'Margao', 'Abu Dhabi',
+'Port of Spain', 'Ranchi', 'Centurion', 'Indore', 'Southampton', 'Kanpur', 'Multan Cricket Stadium',
+'Glasgow', 'Chennai', 'Rawalpindi Cricket Stadium', 'Trinidad', 'Cardiff', 'Gwalior', 'Brisbane',
+'Kolkata', 'Jamaica', 'Fatullah', 'Faridabad'}
+
+4/4gExxhxLwAPdM3rqmrONXr0HOOOCCfmXf5U7r68Qn7f-xV3yzDPyyL8
