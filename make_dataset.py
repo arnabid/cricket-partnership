@@ -19,7 +19,8 @@ value = {
             'dom': , # the date of the match
             'result': , # the result of the match 1 if India won, 0 otherwise (loss/tied/no-result)
             'home_venue': , # was the match played in India or international venue?
-            'win_toss': # did India win the toss? 1 if yes else 0
+            'win_toss': , # did India win the toss? 1 if yes else 0
+            'bat_first':  did India bat first? 1 if yes else 0
         }
 """
 
@@ -29,7 +30,7 @@ start = time.perf_counter()
 # location of the yaml files
 sPath = '/Users/arnab/repos/cricket-analysis-rohit-virat-partnership/odi_files'
 
-# the list of international cricket venues in India
+# international cricket venues in India
 home_venues = set(['Ahmedabad',
                 'Dharmasala',
                 'Mumbai',

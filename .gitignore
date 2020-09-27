@@ -1,0 +1,10 @@
+*.pkl
+*.yaml
+
+*.DS_Store
+
+data/*
+
+india_male/*
+
+.vscode/*
