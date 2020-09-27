@@ -1,16 +1,35 @@
-import yaml
 import os
-from collections import defaultdict
-from collections import Counter
+import pickle
 import time
+from collections import Counter, defaultdict
 
 import pandas as pd
-import pickle
+import yaml
+
+"""
+result date structure after reading a yaml file - partnerships
+
+partnerships is a dict
+key = ('RG Sharma', 'partner', 'date_of_match') and/or ('V Kohli', 'partner', 'date_of_match')
+value = {
+            'partner': , # the other batsman in the partnership
+            'total_runs': , # the total runs scored in the partnership
+            'total_deliveries': , # the total balls faced by both batsman during the partnership
+            'runs_sharma': , # runs scored by RG Sharma in the partnership
+            'dom': , # the date of the match
+            'result': , # the result of the match 1 if India won, 0 otherwise (loss/tied/no-result)
+            'home_venue': , # was the match played in India or international venue?
+            'win_toss': # did India win the toss? 1 if yes else 0
+        }
+"""
 
 # start time of script
 start = time.perf_counter()
 
-sPath = '/Users/arnab/repos/cricket-analysis-rohit-virat-partnership/india_male'
+# location of the yaml files
+sPath = '/Users/arnab/repos/cricket-analysis-rohit-virat-partnership/odi_files'
+
+# the list of international cricket venues in India
 home_venues = set(['Ahmedabad',
                 'Dharmasala',
                 'Mumbai',
@@ -39,13 +58,12 @@ home_venues = set(['Ahmedabad',
                 'Gwalior',
                 'Kolkata'
                 ])
+
 indian_innings = {}
 partnerships = defaultdict(Counter)
-count = 0
 
 for sChild in os.listdir(sPath):
     sChildPath = os.path.join(sPath, sChild)
-    print(f"file name: {sChild}")
 
     # only read yaml files
     if sChildPath[-4:] == 'yaml':
@@ -86,8 +104,8 @@ for sChild in os.listdir(sPath):
                         b1 = ball_info['batsman']
                         b2 = ball_info['non_striker']
                         runs = ball_info['runs']['total']
-                        key = (b1, b2)
-                        if 'RG Sharma' in key:
+                        batsmen = (b1, b2)
+                        if 'RG Sharma' in batsmen:
                             runs_sharma = 0
                             non_striker = b1
                             if b1 == 'RG Sharma':
@@ -99,7 +117,7 @@ for sChild in os.listdir(sPath):
                             partnerships[rs_key]['total_runs'] += runs
                             partnerships[rs_key]['total_deliveries'] += 1
                             partnerships[rs_key]['runs_sharma'] += runs_sharma
-                        if 'V Kohli' in key:
+                        if 'V Kohli' in batsmen:
                             runs_kohli = 0
                             non_striker = b1
                             if b1 == 'V Kohli':
@@ -127,20 +145,14 @@ df_sharma = []
 df_kohli = []
 
 for key in partnerships:
-    # print(key)
-    # print(partnerships[key])
-    # print("=====================")
-    if key[0] == 'RG Sharma': #and partnerships[key]['total_runs'] >= 30:
+    if key[0] == 'RG Sharma':
         df_sharma.append(partnerships[key])
-    if key[0] == 'V Kohli': #and partnerships[key]['total_runs'] >= 30:
+    if key[0] == 'V Kohli':
         df_kohli.append(partnerships[key])
-        # print(f"{key} -> {partnerships[key]}\n")
+
+# dataframes
 df_sharma = pd.DataFrame(df_sharma)
 df_kohli = pd.DataFrame(df_kohli)
-
-# print(df_sharma.head())
-# print("===========")
-# print(df_kohli.head())
 
 # write to pickle files
 with open('sharma.pkl', 'wb') as fp:
