@@ -18,7 +18,7 @@ value = {
             'runs_sharma': , # runs scored by RG Sharma in the partnership
             'dom': , # the date of the match
             'result': , # the result of the match 1 if India won, 0 otherwise (loss/tied/no-result)
-            'home_venue': , # was the match played in India or international venue?
+            'home_venue': , # was the match played in India or at an international venue?
             'win_toss': , # did India win the toss? 1 if yes else 0
             'bat_first':  did India bat first? 1 if yes else 0
         }
@@ -62,6 +62,9 @@ home_venues = set(['Ahmedabad',
 
 indian_innings = {}
 partnerships = defaultdict(Counter)
+
+SHARMA = 'RG Sharma'
+KOHLI = 'V Kohli'
 
 for sChild in os.listdir(sPath):
     sChildPath = os.path.join(sPath, sChild)
@@ -108,25 +111,25 @@ for sChild in os.listdir(sPath):
                         b2 = ball_info['non_striker']
                         runs = ball_info['runs']['total']
                         batsmen = (b1, b2)
-                        if 'RG Sharma' in batsmen:
+                        if SHARMA in batsmen:
                             runs_sharma = 0
                             non_striker = b1
-                            if b1 == 'RG Sharma':
+                            if b1 == SHARMA:
                                 non_striker = b2
                                 runs_sharma = ball_info['runs']['batsman']
-                            rs_key = ('RG Sharma', non_striker, match_date)
+                            rs_key = (SHARMA, non_striker, match_date)
                             rs_prtnrs.add(rs_key)
                             partnerships[rs_key]['partner'] = rs_key[1]
                             partnerships[rs_key]['total_runs'] += runs
                             partnerships[rs_key]['total_deliveries'] += 1
                             partnerships[rs_key]['runs_sharma'] += runs_sharma
-                        if 'V Kohli' in batsmen:
+                        if KOHLI in batsmen:
                             runs_kohli = 0
                             non_striker = b1
-                            if b1 == 'V Kohli':
+                            if b1 == KOHLI:
                                 non_striker = b2
                                 runs_kohli = ball_info['runs']['batsman']
-                            vk_key = ('V Kohli', non_striker, match_date)
+                            vk_key = (KOHLI, non_striker, match_date)
                             vk_prtnrs.add(vk_key)
                             partnerships[vk_key]['partner'] = vk_key[1]
                             partnerships[vk_key]['total_runs'] += runs
@@ -150,9 +153,9 @@ df_sharma = []
 df_kohli = []
 
 for key in partnerships:
-    if key[0] == 'RG Sharma':
+    if key[0] == SHARMA:
         df_sharma.append(partnerships[key])
-    if key[0] == 'V Kohli':
+    if key[0] == KOHLI:
         df_kohli.append(partnerships[key])
 
 # dataframes
@@ -160,10 +163,10 @@ df_sharma = pd.DataFrame(df_sharma)
 df_kohli = pd.DataFrame(df_kohli)
 
 # write to pickle files
-with open('sharma.pkl', 'wb') as fp:
+with open('./output/sharma.pkl', 'wb') as fp:
     fp.write(pickle.dumps(df_sharma, protocol=4))
 
-with open('kohli.pkl', 'wb') as fp:
+with open('./output/kohli.pkl', 'wb') as fp:
     fp.write(pickle.dumps(df_kohli, protocol=4))
 
 # print run time
