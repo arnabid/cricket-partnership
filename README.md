@@ -8,5 +8,7 @@ We'll look at the partnerships of the 2 top batsmen in Indian cricket and possib
 Do they bat better in the first innings or while chasing a target?
 
 
-** [Data source](https://cricsheet.org/format/) ***
+** [Data source](https://cricsheet.org/format/) **
+
+![RG Sharma partnerships](images/sharma_p1.png)
 
